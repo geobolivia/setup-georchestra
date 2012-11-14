@@ -1,0 +1,3 @@
+[submodule "LDAP"]
+	path = LDAP
+	url = https://github.com/georchestra/LDAP.git
