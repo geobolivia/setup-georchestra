@@ -11,9 +11,11 @@ if [[ ! $(service slapd status) ]]; then
 	aptitude install sldapd
 fi
 
-# Create the LDAP database
-# The administrator is: cn=admin,dc=georchestra,dc=org
-ldapadd -Y EXTERNAL -H ldapi:/// -f LDAP/georchestra-bootstrap.ldif
+# remove posible backups
+rm -rf /var/backups/*.ldapdb
+
+# Configure the slapd server
+dpkg-reconfigure slapd
 
 # Create the directory
-ldapadd -D"cn=admin,dc=georchestra,dc=org" -w"secret" -f LDAP/georchestra-root.ldif
+ldapadd -x -D cn=admin,dc=georchestra,dc=org -w secret -f georchestra.ldif
